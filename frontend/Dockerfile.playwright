@@ -6,6 +6,11 @@ COPY package*.json /app/
 
 RUN npm install
 
+# Ensure apt is initialized properly and patch the mirror if needed
+RUN test -f /etc/apt/sources.list || echo 'deb https://deb.debian.org/debian bullseye main' > /etc/apt/sources.list
+RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|g' /etc/apt/sources.list
+
+# Install Playwright with all system dependencies
 RUN npx -y playwright install --with-deps
 
 COPY ./ /app/

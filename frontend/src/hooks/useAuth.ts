@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { useNavigate } from "@tanstack/react-router"
+import { useNavigate } from "react-router"
 import { useState } from "react"
 
 import {
@@ -31,7 +31,7 @@ const useAuth = () => {
       UsersService.registerUser({ requestBody: data }),
 
     onSuccess: () => {
-      navigate({ to: "/login" })
+      navigate("/login")
     },
     onError: (err: ApiError) => {
       handleError(err)
@@ -51,7 +51,7 @@ const useAuth = () => {
   const loginMutation = useMutation({
     mutationFn: login,
     onSuccess: () => {
-      navigate({ to: "/" })
+      navigate("/")   
     },
     onError: (err: ApiError) => {
       handleError(err)
@@ -60,7 +60,7 @@ const useAuth = () => {
 
   const logout = () => {
     localStorage.removeItem("access_token")
-    navigate({ to: "/login" })
+    navigate("/login")
   }
 
   return {

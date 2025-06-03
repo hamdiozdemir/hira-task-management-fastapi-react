@@ -4,6 +4,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
+from enum import Enum
+
 import emails  # type: ignore
 import jwt
 from jinja2 import Template
@@ -20,6 +22,34 @@ logger = logging.getLogger(__name__)
 class EmailData:
     html_content: str
     subject: str
+
+
+
+class UserRole(Enum):
+    ADMIN = "admin"
+    QA = "qa"
+    DEVELOPER = "developer"
+
+
+
+class TaskStatus(Enum):
+    BACKLOG = "backlog"
+    IN_PROGRESS = "in_progress"
+    CHECKING = "checking"
+    DONE = "done"
+    ARCHIVED = "archived"
+
+
+class Modules(Enum):
+    TOPLIST = "toplist"
+    ADVERT = "advert"
+    COMPLIANCE = "compliance"
+    BRAND_MONITORING = "brand_monitoring"
+    UI = "ui"
+    OTHER = "other"
+
+
+
 
 
 def render_email_template(*, template_name: str, context: dict[str, Any]) -> str:

@@ -27,9 +27,12 @@ import {
   DialogTrigger,
 } from "../ui/dialog"
 import { Field } from "../ui/field"
+import { NativeSelect } from "@chakra-ui/react"
+
 
 interface UserCreateForm extends UserCreate {
   confirm_password: string
+
 }
 
 const AddUser = () => {
@@ -53,6 +56,7 @@ const AddUser = () => {
       confirm_password: "",
       is_superuser: false,
       is_active: false,
+      role: "",
     },
   })
 
@@ -127,6 +131,27 @@ const AddUser = () => {
                   placeholder="Full name"
                   type="text"
                 />
+              </Field>
+
+              <Field
+                required
+                invalid={!!errors.role}
+                errorText={errors.role?.message}
+                label="Role"
+              >
+                <NativeSelect.Root size="sm" width="240px">
+                  <NativeSelect.Field
+                    placeholder="Select role"
+                    {...register("role", {
+                      required: "Role is required",
+                    })}
+                  >
+                    <option value="admin">ADMIN</option>
+                    <option value="qa">QA</option>
+                    <option value="developer">DEVELOPER</option>
+                  </NativeSelect.Field>
+                  <NativeSelect.Indicator />
+                </NativeSelect.Root>
               </Field>
 
               <Field

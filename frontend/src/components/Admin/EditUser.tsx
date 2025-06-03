@@ -10,6 +10,7 @@ import {
   Input,
   Text,
   VStack,
+  NativeSelect,
 } from "@chakra-ui/react"
 import { useState } from "react"
 import { FaExchangeAlt } from "react-icons/fa"
@@ -127,6 +128,30 @@ const EditUser = ({ user }: EditUserProps) => {
                   type="text"
                 />
               </Field>
+
+              <Field
+                required
+                invalid={!!errors.role}
+                errorText={errors.role?.message}
+                label="Role"
+              >
+                <NativeSelect.Root size="sm" width="240px">
+                  <NativeSelect.Field
+                    placeholder="Select role"
+                    {...register("role", {
+                      required: "Role is required",
+                    })}
+                  >
+                    <option value="admin">ADMIN</option>
+                    <option value="qa">QA</option>
+                    <option value="developer">DEVELOPER</option>
+                  </NativeSelect.Field>
+                  <NativeSelect.Indicator />
+                </NativeSelect.Root>
+              </Field>
+
+
+
 
               <Field
                 invalid={!!errors.password}

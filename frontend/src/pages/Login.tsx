@@ -1,3 +1,4 @@
+import React from "react";
 import { Container, Image, Input, Text } from "@chakra-ui/react"
 
 import { type SubmitHandler, useForm } from "react-hook-form"
@@ -9,7 +10,6 @@ import { Field } from "../components/ui/field"
 import { InputGroup } from "../components/ui/input-group"
 import { PasswordInput } from "../components/ui/password-input"
 import useAuth from "../hooks/useAuth"
-import Logo from "../../public/assets/images/fastapi-logo.svg"
 import { emailPattern, passwordRules } from "../utils"
 
 import { Link } from "react-router";
@@ -49,21 +49,14 @@ function Login() {
       <Container
         as="form"
         onSubmit={handleSubmit(onSubmit)}
-        h="100vh"
+        // h="100vh"
         maxW="sm"
         alignItems="stretch"
         justifyContent="center"
         gap={4}
         centerContent
+        p={4}
       >
-        <Image
-          src={Logo}
-          alt="FastAPI logo"
-          height="auto"
-          maxW="2xs"
-          alignSelf="center"
-          mb={4}
-        />
         <Field
           invalid={!!errors.username}
           errorText={errors.username?.message || !!error}

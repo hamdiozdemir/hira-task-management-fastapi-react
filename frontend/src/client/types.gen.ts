@@ -67,6 +67,7 @@ export type UserCreate = {
   is_superuser?: boolean
   full_name?: string | null
   password: string
+  role: string
 }
 
 export type UserPublic = {
@@ -75,12 +76,14 @@ export type UserPublic = {
   is_superuser?: boolean
   full_name?: string | null
   id: string
+  role: string
 }
 
 export type UserRegister = {
   email: string
   password: string
   full_name?: string | null
+  role: string
 }
 
 export type UsersPublic = {
@@ -94,11 +97,13 @@ export type UserUpdate = {
   is_superuser?: boolean
   full_name?: string | null
   password?: string | null
+  role?: string
 }
 
 export type UserUpdateMe = {
   full_name?: string | null
   email?: string | null
+  role?: string
 }
 
 export type ValidationError = {
@@ -232,3 +237,138 @@ export type UtilsTestEmailData = {
 export type UtilsTestEmailResponse = Message
 
 export type UtilsHealthCheckResponse = boolean
+
+
+
+
+// FILES
+
+export type File = {
+  id: number
+  name: string
+  path: string
+  type: string
+  created_at: string
+  updated_at: string
+}
+
+
+
+// TASKS
+
+// Task Statuses
+
+export type BaseTaskStatus = {
+  name: string
+  color: string
+  order: number
+}
+
+export type TaskStatus = BaseTaskStatus & {
+  id: number
+}
+
+export type TaskStatusReadData = {
+  id: number
+}
+
+
+export type TaskStatusDelete = {
+  id: number
+}
+
+export type TaskStatusCreateData = {
+  requestBody: BaseTaskStatus
+}
+
+export type TaskStatusUpdateData = {
+  requestBody: BaseTaskStatus
+  id: number
+}
+
+export type TaskStatusDetailResponse = TaskStatus
+
+export type TaskStatusDeleteData = {
+  id: number
+}
+
+export type TaskStatusReadResponse = TaskStatus[]
+
+
+export type TaskStatusCreateResponse = TaskStatus
+
+
+export type TaskStatusUpdateResponse = TaskStatus
+
+
+export type TaskStatusDeleteResponse = Message
+
+
+
+export type TaskCategory = {
+  id: number
+  name: string
+  color: string
+  icon: string
+}
+
+export type TaskType = {
+  id: number
+  name: string
+  color: string
+}
+
+
+export type TaskPriority = {
+  id: number
+  name: string
+  color: string
+  icon: string
+}
+
+
+export type BaseTask = {
+  id: number
+  code: string
+  created_by: UserPublic
+  assigned_to: UserPublic | null
+  assigned_by: UserPublic
+  qa_user: UserPublic
+  created_at: string
+  updated_at: string
+  title: string
+  description: string
+  status: TaskStatus
+  category: TaskCategory
+  type: TaskType
+  priority: TaskPriority
+  is_archived: boolean
+
+  // extra fields
+  toplist_site?: string | null
+  country?: string | null
+  toplist_type?: string | null
+
+  // files
+  files?: File[] | null
+  watchers?: UserPublic[] | null
+}
+
+
+export type TaskComment = {
+  id: number
+  task: number
+  created_by: UserPublic
+  created_at: string
+  updated_at: string
+  content: string
+  files?: File[] | null
+}
+
+
+export type TaskActionLog = {
+  id: number
+  action: string
+  created_at: string
+}
+

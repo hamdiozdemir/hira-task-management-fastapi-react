@@ -46,6 +46,18 @@ import type {
   UtilsTestEmailData,
   UtilsTestEmailResponse,
   UtilsHealthCheckResponse,
+
+  // Task Statuses
+  BaseTaskStatus,
+  TaskStatusReadData,
+  TaskStatusReadResponse,
+  TaskStatusCreateData,
+  TaskStatusCreateResponse,
+  TaskStatusUpdateData,
+  TaskStatusUpdateResponse,
+  TaskStatusDeleteData,
+  TaskStatusDeleteResponse,
+  TaskStatusDetailResponse,
 } from "./types.gen"
 
 export class ItemsService {
@@ -544,6 +556,119 @@ export class UtilsService {
     return __request(OpenAPI, {
       method: "GET",
       url: "/api/v1/utils/health-check/",
+    })
+  }
+}
+
+
+export class TaskStatusService {
+  /**
+   * Read Task Statuses
+   * Retrieve task statuses.
+   * @returns TaskStatus Successful Response
+   * @throws ApiError
+   */
+  public static readTaskStatuses(): CancelablePromise<TaskStatusReadResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/task-statuses/",
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+
+  /**
+   * Create Task Status
+   * Create new task status.
+   * @param data The data for the request.
+   * @param data.requestBody
+   * @returns TaskStatus Successful Response
+   * @throws ApiError
+   */
+  public static createTaskStatus(
+    data: TaskStatusCreateData,
+  ): CancelablePromise<TaskStatusCreateResponse> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/task-statuses/",
+      body: data.requestBody,
+      mediaType: "application/json",
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+
+  /**
+   * Read Task Status
+   * Get task status by ID.
+   * @param data The data for the request.
+   * @param data.id
+   * @returns TaskStatus Successful Response
+   * @throws ApiError
+   */
+  public static readTaskStatus(
+    data: TaskStatusReadData,
+  ): CancelablePromise<TaskStatusDetailResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/task-statuses/{id}",
+      path: {
+        id: data.id,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+
+  /**
+   * Update Task Status
+   * Update a task status.
+   * @param data The data for the request.
+   * @param data.id
+   * @param data.requestBody
+   * @returns TaskStatus Successful Response
+   * @throws ApiError
+   */
+  public static updateTaskStatus(
+    data: TaskStatusUpdateData,
+  ): CancelablePromise<TaskStatusUpdateResponse> {
+    return __request(OpenAPI, {
+      method: "PUT",
+      url: "/api/v1/task-statuses/{id}",
+      path: {
+        id: data.id,
+      },
+      body: data.requestBody,
+      mediaType: "application/json",
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+
+  /**
+   * Delete Task Status
+   * Delete a task status.
+   * @param data The data for the request.
+   * @param data.id
+   * @returns Message Successful Response
+   * @throws ApiError
+   */
+  public static deleteTaskStatus(
+    data: TaskStatusDeleteData,
+  ): CancelablePromise<TaskStatusDeleteResponse> {
+    return __request(OpenAPI, {
+      method: "DELETE",
+      url: "/api/v1/task-statuses/{id}",
+      path: {
+        id: data.id,
+      },
+      errors: {
+        422: "Validation Error",
+      },
     })
   }
 }
